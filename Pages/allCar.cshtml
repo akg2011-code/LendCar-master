@@ -1,0 +1,29 @@
+﻿@page
+@model LendCar.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Home page";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<partial name="_CarList" model="(IPagedList)Model.Vehicles" />
+
+<div class="text-center">
+
+    @Html.PagedListPager((IPagedList)Model.Vehicles, page =>"/Index?Page="+page,
+        new X.PagedList.Mvc.Common.PagedListRenderOptions
+        {
+            DisplayItemSliceAndTotal = true,
+            ContainerDivClasses = new[] { "navigation" },
+            LiElementClasses = new[] { "page-item","car-list" },
+            PageClasses = new[] { "page-link" },
+        })
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('/*ul*/.pagination > li.disabled > a').addClass('page-link');
+        });
+    </script>
+}

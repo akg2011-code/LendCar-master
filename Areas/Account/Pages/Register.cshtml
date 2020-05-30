@@ -1,0 +1,101 @@
+﻿@page
+@model LendCar.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<!-- REGISTRATION FORM -->
+<section class="LoginPage no-padding">
+    <div class="formLogin">
+        <div class="text-center">
+            <div class="logo">
+                <img src="https://bit.ly/2SQOQjl" alt="car" />
+            </div>
+            <!-- Main Form -->
+            <div class="login-form-1">
+                <form id="register-form" method="post" class="text-left">
+                    <div class="login-form-main-message"></div>
+                    <div class="main-login-form">
+                        <div class="login-group">
+                            <div class="form-group">
+                                <label asp-for="Input.UserName" class="sr-only"></label>
+                                <input type="text" asp-for="Input.UserName" class="form-control" placeholder="User Name*">
+                                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Input.Password" class="sr-only"></label>
+                                <input type="password" asp-for="Input.Password" class="form-control" placeholder="Password*">
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Input.ConfirmPassword" class="sr-only"></label>
+                                <input type="password" asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password*">
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.Email" class="sr-only"></label>
+                                <input type="text" asp-for="Input.Email" class="form-control" placeholder="Email*">
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.PhoneNumber" class="sr-only"></label>
+                                <input type="text" asp-for="Input.PhoneNumber" class="form-control" placeholder="Phone Number*">
+                                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.DriverLicenseNumber" class="sr-only"></label>
+                                <input type="text" asp-for="Input.DriverLicenseNumber" class="form-control" placeholder="Driver License Number*">
+                                <span asp-validation-for="Input.DriverLicenseNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Input.CityId">City *: </label>
+                                <select asp-for="Input.CityId" asp-items="@Model.Cities" class="form-control"></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.GenderId">Gender *: </label>
+                                <select asp-for="Input.GenderId" asp-items="@Model.Genders" class="form-control"></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.Address">Address *: </label>
+                                <input asp-for="Input.Address" class="form-control">
+                            </div>
+
+                            <div class="form-group login-group-checkbox">
+                                <input type="checkbox" class="" id="reg_agree" name="reg_agree">
+                                <label for="reg_agree">I agree with <a href="#" data-toggle="modal" data-target="#login-modal">Terms of service</a></label>
+                            </div>
+                        </div>
+                        <button type="submit" class="login-button"><i class="fas fa-car-side"></i></button>
+                    </div>
+                    <div class="etc-login-form">
+                        <p>already have an account? <a asp-page="/login">Login Here</a></p>
+                    </div>
+                </form>
+            </div>
+            <!-- end:Main Form -->
+        </div>
+    </div>
+</section>
+<!-- terms Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <div style="height:50px;"></div>
+            <h1 style="color:var(--main-color)">Terms of service</h1>
+            <br>
+            <p style="color:var(--main-color);font-size:medium">
+                Dear customer, from now on you will be responsible for all information about the car and any wrong and non-conforming information will be subject to legal liability.
+                Ensure that the personal information in this form is correct, as it is important when adding a new car or even when renting a new car.
+                When agreeing to these companies, we have the right to use that personal information to use it in the company data and to make statistics and analyzes for the company.
+            </p>
+        </div>
+    </div>
+</div>

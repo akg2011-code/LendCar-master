@@ -1,0 +1,130 @@
+﻿@page
+@model LendCar.Pages.contactModel
+@{
+    ViewData["Title"] = "contact";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<section id="header-contact">
+    <div class="head-contact">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 text-center ">
+                    <div class="contact-title">
+                        <h1>Contact</h1>
+                        <h3>Keep In Touch With Us</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="lend-office">
+    <div class="contianer">
+
+        <div class="row">
+            <div class="lend-office-title">
+                <div class="col-lg-12 text-center">
+                    <h3>REACHING OUR OFFICE</h3>
+                    <h1>FIND OUR LOCATION</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="row">
+
+        <div class="col-lg-4 col-xs-12">
+            <div class="lend-info text-center">
+                <div class="icon">
+                    <i class="fas fa-map-marker-alt text-center"></i>
+                </div>
+                <h3>VISIT OUR OFFICE</h3>
+                <div class="office-addres">
+                    <p>@Model.Contact?.Location</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+            <div class="lend-info text-center">
+                <div class="icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>MAIL US</h3>
+                <div class="office-addres">
+                    <p>@Model.Contact?.Email</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-xs-12">
+            <div class="lend-info text-center">
+                <div class="icon">
+                    <i class="fas fa-phone-volume"></i>
+                </div>
+                <h3>CALL US</h3>
+                <div class="office-addres">
+                    <p>@Model.Contact?.Phone</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="google-lend ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56314.884100092335!2d30.785740902375313!3d28.09529447238771!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145b2501ca8ed45f%3A0x1682970743a18080!2z2KfZhNmF2YbZitin2Iwg2YLYs9mFINin2YTZhdmG2YrYp9iMINmF2LHZg9iyINin2YTZhdmG2YrYp9iMINin2YTZhdmG2YrYpw!5e0!3m2!1sar!2seg!4v1588692780758!5m2!1sar!2seg" width="100%" height="500" frameborder="0" style="border:0;" allowfullscreen="true" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<form method="post" id="contact-form">
+    <section class="contact">
+        <div class="container">
+            <form  action="" method="post" role="form">
+                <div class="error-container"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>WE LOVE TO HEAR YOU</h3>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ContactViewModel.UserEmail">Email</label>
+                            <input asp-for="ContactViewModel.UserEmail" class="form-control form-control-email" id="email" placeholder="Enter Your Mail">
+                            <span asp-validation-for="ContactViewModel.UserEmail" class="red"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ContactViewModel.MailSubjct">Subject</label>
+                            <input asp-for="ContactViewModel.MailSubjct" class="form-control form-control-subject" id="subject" placeholder="Eneter Subject OF Your Message">
+                            <span asp-validation-for="ContactViewModel.MailSubjct" style="color:red"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ContactViewModel.Message">Message</label>
+                    <textarea asp-for="ContactViewModel.Message" class="form-control form-control-message" id="message" placeholder="Write Your Message" rows="10"></textarea>
+                    <span asp-validation-for="ContactViewModel.Message" class="red"></span>
+
+                </div>
+                <div class="text-right">
+                    <br>
+                    <button class="btn btn-primary " type="submit">Send Message  <i class="fas fa-paper-plane"></i></button>
+                </div>
+            </form>
+
+        </div>
+    </section>
+</form>

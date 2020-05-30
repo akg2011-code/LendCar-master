@@ -1,0 +1,58 @@
+﻿@model IPagedList<LendCar.Models.BrandModel>
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Model</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        @*@for (int i = 1; i <= Model.Count; i++)
+        {
+        <tr>
+            <td>@i</td>
+            <td>@Model[i - 1].Name</td>
+            <td>@Model[i - 1].Brand.Name</td>
+            <td class="text-center">
+                <a data-edited-brandModel-id="@Model[i-1].Id" data-edited-brandModel-name="@Model[i-1].Name" class='btn btn-info btn-xs edit-brandModel-btn' onclick="ShowEditBrandModelModal(this)"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                <a data-deleted-brandModel-id="@Model[i-1].Id" data-deleted-brandModel-name="@Model[i-1].Name" class="btn btn-danger btn-xs delete-brandModel" onclick="DeleteBrandModel(this)"><span class="glyphicon glyphicon-remove "></span> Del</a>
+            </td>
+        </tr>
+        }*@
+        @{
+            var GroupedModelsByBrands = Model.GroupBy(bm => bm.Brand.Name);
+
+            int counter = Model.PageNumber * Model.PageSize - (Model.PageSize - 1);
+            if (Model.TotalItemCount > 0)
+                foreach (var modelGroup in GroupedModelsByBrands)
+                {
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="text-center" style="background-color:#FEBE29;">
+                                @modelGroup.Key
+                            </th>
+                        </tr>
+                    </thead>
+                    @foreach (var bmodel in modelGroup)
+                    {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@bmodel.Name</td>
+                            <td class="text-center">
+                                <a data-edited-brandModel-id="@bmodel.Id" data-edited-brandModel-name="@bmodel.Name" data-edited-brandModel-brandId="@bmodel.BrandId" class='btn btn-info btn-xs edit-brandModel-btn' onclick="ShowEditBrandModelModal(this)"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                <a data-deleted-brandModel-id="@bmodel.Id" data-deleted-brandModel-name="@bmodel.Name" data-edited-brandModel-brandId ="@bmodel.BrandId" class="btn btn-danger btn-xs delete-brandModel" onclick="DeleteBrandModel(this)"><span class="glyphicon glyphicon-remove "></span> Del</a>
+                            </td>
+                        </tr>
+                        counter++;
+                    }
+                }
+            else {
+                <tr>
+                    <td colspan="3" class="text-center">
+                        No models for this brand yet
+                    </td>
+                </tr>
+                 }
+        }
+
+    </table>

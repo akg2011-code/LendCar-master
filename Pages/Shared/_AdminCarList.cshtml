@@ -1,0 +1,40 @@
+﻿@model IPagedList<LendCar.Models.Vehicle>
+<table class="table  table-responsive table-bordered text-center ">
+    <thead class="text-center">
+        <tr>
+            <td scope="col">#</td>
+            <td scope="col">Vehicles Name</td>
+            <td scope="col">Color</td>
+            <td scope="col">Platform</td>
+            <td scope="col">Start Date</td>
+            <td scope="col">End Date</td>
+            <td scope="col">Accept</td>
+            <td scope="col">Refuse</td>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 1; i <= Model.Count; i++)
+        {
+        <tr>
+            <td scope="row">@i</td>
+            <td>@Model[i-1].City.Name</td>
+            @* <td> <p style="min-width:100%;min-height:100%; background-color:#@Url.Content(Model[i].Color.HexValue);"><p></td>*@
+            <td><i style="border-radius:50%; width:50%;height:50%; background-color:@Model[i-1].Color.HexValue">    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </i></td>
+
+            <td>@Model[i-1].PlateNumber</td>
+            <td>@Model[i-1].StartDate</td>
+            <td>@Model[i-1].EndDate</td>
+
+            @*<td>
+            <a asp-page="/Cars/carDetails" asp-route-id="@Model[i].Id">Details</a>
+        </td>*@
+            <td>
+                <a class="far fa-check-circle accept" data-id="@Model[i-1].Id"></a>
+            </td>
+            <td>
+                <a class="fas fa-times refuse" data-id="@Model[i-1].Id"></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

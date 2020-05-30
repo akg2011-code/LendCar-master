@@ -1,0 +1,32 @@
+﻿@page
+@model LendCar.Pages.failConfirmeModel
+@{
+    ViewData["Title"] = "failConfirme";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<section id="fail">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center col-md-offset-3">
+                <div class="fail">
+                    <div class="fail-icon-box">
+                        <i class="fas fa-times"></i>
+                    </div>
+
+                    <div class="fail-title">
+                        <h3 class="modal-title">Error !</h3>
+                    </div>
+
+                    <div class="fail-message">
+                        <p>Something went wrong. Please return to the previous page and try again.</p>
+                    </div>
+
+                    <a class="btn btn-success" href="#"><i class="fas fa-backward"></i> Back To Home Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

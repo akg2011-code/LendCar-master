@@ -1,0 +1,110 @@
+﻿@page
+@model LendCar.Areas.Admin.Pages.historyclientModel
+@{
+}
+
+
+<section id="user-history">
+    <div class="nav-container">
+        <div class="container-fluid"></div>
+        <div class="row ">
+            <div class="links">
+                <div class="col-md-12 text-center">
+                    <ul class="nav nav-tabs">
+                        <div class="liner"></div>
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab1" title="Rented cars" class="tab-one">
+                                <span class="round ">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tab2" title="Rented cars" class="tab-tow">
+                                <span class="round ">
+                                    <i class="fas fa-history"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="tab-content">
+                    <div id="tab1" class="tab-pane fade in active">
+                        <div class="description text-center">
+                            <h2>Rents Table</h2>
+                            <p>Cars that the customer has rented :</p>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John</td>
+                                    <td>Doe</td>
+                                    <td>john@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>Mary</td>
+                                    <td>Moe</td>
+                                    <td>mary@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>July</td>
+                                    <td>Dooley</td>
+                                    <td>july@example.com</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="tab2" class="tab-pane fade in ">
+                        <div class="description text-center">
+                            <h2>Rent Table</h2>
+                            <p>Cars that the customer has rented :</p>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John</td>
+                                    <td>Doe</td>
+                                    <td>john@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>Mary</td>
+                                    <td>Moe</td>
+                                    <td>mary@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>July</td>
+                                    <td>Dooley</td>
+                                    <td>july@example.com</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>

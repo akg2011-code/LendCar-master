@@ -1,0 +1,115 @@
+﻿@page
+@model LendCar.Areas.Account.Pages.HistoryModel
+@{
+}
+<section id="user-history">
+    <div class="nav-container">
+        <div class="container-fluid"></div>
+        <div class="row ">
+            <div class="links">
+                <div class="col-md-12 text-center">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab1" title="Rented cars" class="tab-one">
+                                <span class="round ">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tab2" title="Rented cars" class="tab-tow">
+                                <span class="round ">
+                                    <i class="fas fa-history"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="tab-content">
+                    <div id="tab1" class="tab-pane fade in active">
+                        <div class="description text-center">
+                            <h2>Hire Table</h2>
+                            <p>Cars that the customer has Hired :</p>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Brand</th>
+                                    <th>Model</th>
+                                    <th>Start Hire</th>
+                                    <th>End Hire</th>
+                                    <th>Case</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.UserBookingCars.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.UserBookingCars[i].Vehicle.Model.Brand.Name</td>
+                                        <td>@Model.UserBookingCars[i].Vehicle.Model.Name</td>
+                                        <td>@Model.UserBookingCars[i].HireDate</td>
+                                        <td>@Model.UserBookingCars[i].ReturnData</td>
+                                        <td>
+                                            @(
+                                               Convert.ToDateTime(Model.ICarRepository.ChangeDateFormatToDaysMonthYears(Model.UserBookingCars[i].ReturnData))>=
+                                               Convert.ToDateTime(DateTime.Now.ToString("dd-MM-yyyy"))?"Active":"End"
+                                            )
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="tab2" class="tab-pane fade in ">
+                        <div class="description text-center">
+                            <h2>Rent Table</h2>
+                            <p>Cars that the customer has rented :</p>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Brand</th>
+                                    <th>Model</th>
+                                    <th>Start Hire</th>
+                                    <th>End Hire</th>
+                                    <th>Case</th>
+                                    <th>Is Accepted</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.UserCars.Count; i++)
+                                {
+                                <tr>
+                                    <td>@Model.UserCars[i].Model.Brand.Name</td>
+                                    <td>@Model.UserCars[i].Model.Name</td>
+                                    <td>@Model.UserCars[i].StartDate</td>
+                                    <td>@Model.UserCars[i].EndDate</td>
+                                    <td>
+                                        @(
+                                            Convert.ToDateTime(Model.ICarRepository.ChangeDateFormatToDaysMonthYears(Model.UserCars[i].EndDate)) >=
+                                            Convert.ToDateTime(DateTime.Now.ToString("dd-MM-yyyy")) ? "Active" : "End"
+                                        )
+                                    </td>
+                                    <td>
+                                        @(Model.UserCars[i].AcceptedAdmin ? "Accepted" : "Pending")
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

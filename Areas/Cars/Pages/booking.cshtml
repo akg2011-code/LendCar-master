@@ -1,0 +1,180 @@
+﻿@page
+@using Microsoft.Extensions.Options;
+@inject IOptions<Models.StripeSettings> Stripe
+@model bookingModel
+@{
+    ViewData["Title"] = "booking";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<section class="booking">
+    <div class="container">
+        <div class="row left-side">
+            <div class="col-md-7 col-xs-12">
+                <div class="title">
+                    <h1>Your Info</h1>
+                </div>
+                <div class="box-info">
+                    <span class="icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </span>
+                    <div class="info">
+                        <p>Since this is your first trip, you’ll need to provide your photo, driver’s license, and contact info to set up your account.</p>
+                    </div>
+                </div>
+                <hr>
+                <h3>Driver's license</h3>
+                <p>Enter your info exactly as it appears on your license so Turo can verify your eligibility to drive.</p>
+                <!-- form -->
+
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input name="carId" value="@Model.CarId" hidden />
+                            <div class="form-group">
+                                <label asp-for="LoggedUserInfo.FirstName">Fist Name</label>
+
+                                <input asp-for="LoggedUserInfo.FirstName"
+                                       class="form-control" type="text">
+
+                                <span asp-validation-for="LoggedUserInfo.FirstName"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="LoggedUserInfo.LastName">Last Name</label>
+
+                                <input asp-for="LoggedUserInfo.LastName"
+                                       class="form-control" type="text">
+
+                                <span asp-validation-for="LoggedUserInfo.LastName"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>City</label>
+                                <select asp-for="LoggedUserInfo.CityId" asp-items="Model.Cites" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="LoggedUserInfo.DriverLicenseNumber">License number</label>
+
+                            <input asp-for="LoggedUserInfo.DriverLicenseNumber"
+                                   class="form-control" type="text">
+
+                            <span asp-validation-for="LoggedUserInfo.DriverLicenseNumber"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="LoggedUserInfo.PhoneNumber">Phone number</label>
+
+                            <input asp-for="LoggedUserInfo.PhoneNumber"
+                                   class="form-control" type="text">
+
+                            <span asp-validation-for="LoggedUserInfo.PhoneNumber"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Date Of Birth</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select asp-for="Day" class="form-control"
+                                    asp-items="bookingModel.Days">
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select asp-for="Month" class="form-control"
+                                    asp-items="bookingModel.Months">
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select asp-for="Year" class="form-control"
+                                    asp-items="@bookingModel.Years">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 confirm">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Continue <i class="fas fa-share-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                    <div class="row">
+                        <div class="col-md-4 confirm">
+                            <form action="/Payment/Pay">
+                                <input type="hidden" name="RenterId" value="@Model.LoggedUserInfo.Id" />
+                                <input type="hidden" name="VehicleId" value="@Model.Vehicle.Id" />
+                                <input type="hidden" name="ReturnData" value="@Model.EndBookingDate" />
+                                <input type="hidden" name="HireDate" value="@Model.StartBookingDate" />
+                                <input type="hidden" name="amount" value="@Model.totalPrice" />
+                                <script src="//checkout.stripe.com/v2/checkout.js"
+                                        class="stripe-button"
+                                        data-key="@Stripe.Value.PublishableKey"
+                                        data-locale="auto">
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                
+                <hr>
+            </div>
+
+            <!-- right-side -->
+            <div class="col-md-4 col-box">
+                <div class="car-info">
+
+                    <img src="@Url.Content(Model.Vehicle.ImageUrl)"
+                         class="img-responsive car-img">
+
+                    <img src="@Url.Content(Model.Vehicle.Owner.ImageUrl)"
+                         class="img-responsive  person-img">
+                </div><br>
+                <div class="car-details">
+                    <p class="car-owner">dewei’s</p>
+                    <h3>@Model.Vehicle.Model.Brand.Name</h3>
+                    <div class="rate">
+                        <span class="rate-number">4.88</span>
+                        <i class="fas fa-star"></i>
+                        <span>(@Model.Vehicle.TripsNumber trips)</span>
+                    </div>
+
+                    <div class="from-to-booking">
+                        <div class="from-booking">
+                            <div class="schedule-date">@Model.StartBookingDate</div>
+                        </div>
+                        <div class="to-booking">
+                            <div class="schedule-date">@Model.EndBookingDate</div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="meeting-location">
+                    <h5>MEETING LOCATION</h5>
+                    <div class="meeting-location-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="location">
+                        <p>@Model.Contact.Location</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+ 

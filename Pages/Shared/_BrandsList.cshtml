@@ -1,0 +1,25 @@
+﻿@model IPagedList<LendCar.Models.Brand>
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Brand</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        @{ 
+            int counter = Model.PageNumber * Model.PageSize - (Model.PageSize - 1);
+            foreach(var brand in Model)
+            {
+                    <tr>
+                        <td>@counter</td>
+                        <td>@brand.Name</td>
+                        <td class="text-center">
+                            <a data-edited-brand-id="@brand.Id" data-edited-brand-name="@brand.Name" class='btn btn-info btn-xs edit-brand-btn' onclick="ShowEditBrandModal(this)"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                            <a data-deleted-brand-id="@brand.Id" data-deleted-brand-name="@brand.Name" class="btn btn-danger btn-xs delete-brand" onclick="DeleteBrand(this)"><span class="glyphicon glyphicon-remove "></span> Del</a>
+                        </td>
+                    </tr>
+                counter++;
+            }
+        }
+    </table>

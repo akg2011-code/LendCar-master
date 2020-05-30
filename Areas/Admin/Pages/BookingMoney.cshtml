@@ -1,0 +1,93 @@
+﻿@page
+@model LendCar.Areas.Admin.Pages.BookingMoneyModel
+@{
+}
+<section id="user-history">
+    <div class="nav-container">
+        <div class="container-fluid"></div>
+        <div class="row ">
+            <div class="links">
+                <div class="col-md-12 text-center">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab1" title="Rented cars" class="tab-one">
+                                <span class="round ">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tab2" title="Rented cars" class="tab-tow">
+                                <span class="round ">
+                                    <i class="fas fa-history"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="tab-content">
+                    <div id="tab1" class="tab-pane fade in active">
+                        <div id="ListOfClientWithMoney">
+                            <partial name="_ClientMoney" model="@Model.Clients" />
+                        </div>
+                    </div>
+
+                    <div id="tab2" class="tab-pane fade in ">
+                        <div id="listOfAllCanceledBooking">
+                            <partial name="_ClientCancel" model="@Model.ClientCanceled" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $(document).on('click', '.btnDeliverMoney', function () {
+                var clientID = $(this).attr('data-id');
+                $.ajax({
+                    method: "Post",
+                    url: "/Client/Deliver",
+                    beforeSend: function () {
+                        $('#loader').show();
+                    },
+                    data: { clientId: clientID },
+                    success: function (data) {
+                        $('#ListOfClientWithMoney').html(data);
+                        $('#loader').hide();
+                    }
+                })
+            })
+
+
+              $(document).on('click', '.btnCancel', function () {
+                var clientID = $(this).attr('data-id');
+                $.ajax({
+                    method: "Post",
+                    url: "/Client/Cancel",
+                    beforeSend: function () {
+                        $('#loader').show();
+                    },
+                    data: { clientId: clientID },
+                    success: function (data) {
+                        $('#listOfAllCanceledBooking').html(data);
+                        $('#loader').hide();
+                    }
+                })
+            })
+        })
+    </script>
+}

@@ -1,0 +1,154 @@
+﻿@page
+@model UserInfo
+@{
+    ViewData["Title"] = "booking";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<section class="booking">
+    <div class="container">
+        <div class="row left-side">
+            <div class="col-md-7 col-xs-12">
+                <div class="title">
+                    <h1>Your Info</h1>
+                </div>
+                <div class="box-info">
+                    <span class="icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </span>
+                </div>
+                <hr>
+                <h3>Driver's license</h3>
+                <p>Enter your info exactly as it appears on your license so Turo can verify your eligibility to drive.</p>
+                <!-- form -->
+
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input name="carId" value="@Model.CarId" hidden />
+                            <div class="form-group">
+                                <label asp-for="LoggedUserInfo.FirstName">Fist Name</label>
+
+                                <input asp-for="LoggedUserInfo.FirstName"
+                                       class="form-control" type="text">
+
+                                <span asp-validation-for="LoggedUserInfo.FirstName"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="LoggedUserInfo.LastName">Last Name</label>
+
+                                <input asp-for="LoggedUserInfo.LastName"
+                                       class="form-control" type="text">
+
+                                <span asp-validation-for="LoggedUserInfo.LastName"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>City</label>
+                                <select asp-for="LoggedUserInfo.CityId" asp-items="Model.Cites" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="LoggedUserInfo.DriverLicenseNumber">License number</label>
+
+                            <input asp-for="LoggedUserInfo.DriverLicenseNumber"
+                                   class="form-control" type="text">
+
+                            <span asp-validation-for="LoggedUserInfo.DriverLicenseNumber"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="LoggedUserInfo.PhoneNumber">Phone number</label>
+
+                            <input asp-for="LoggedUserInfo.PhoneNumber"
+                                   class="form-control" type="text">
+
+                            <span asp-validation-for="LoggedUserInfo.PhoneNumber"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Date Of Birth</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select asp-for="Day" class="form-control"
+                                    asp-items="bookingModel.Days">
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select asp-for="Month" class="form-control"
+                                    asp-items="bookingModel.Months">
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select asp-for="Year" class="form-control"
+                                    asp-items="@bookingModel.Years">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 confirm">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Continue <i class="fas fa-share-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+            </div>
+
+            <!-- right-side -->
+            <div class="col-md-4 col-box">
+                <div class="row">
+                    <div class="col-lg-8 text-center col-offset-2">
+                        <img id="profileImage" src="@Url.Content(Model.LoggedUserInfo.ImageUrl)" class="img-circle img-responsive" />
+                        <input type="file" id="UploadUserPhoto" class="hidden" />
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <label for="UploadUserPhoto">Change Photo</label>
+                </div>
+                <div id="c">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#UploadUserPhoto").change(function () {
+
+                var formData = new FormData();
+                formData.append("photo", $("#UploadUserPhoto")[0].files[0]);
+                  formData.append("userId",'@Model.LoggedUserInfo.Id');
+                $.ajax({
+                    url: '/Photo/Upload',
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (photo) {
+                        window.location.reload();
+                    }
+                });
+
+            })
+        })
+    </script>
+}

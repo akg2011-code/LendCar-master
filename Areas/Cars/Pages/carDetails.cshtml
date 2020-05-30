@@ -1,0 +1,177 @@
+﻿@page
+@model LendCar.Pages.carDetailsModel
+@{
+    ViewData["Title"] = "carDetails";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<div id="banner-area" class="banner-area" style="background-image:url(images/banner/banner2.jpg)">
+    <div class="banner-text">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="page-slider" class="owl-carousel owl-theme page-slider page-slider-small">
+                    @if (Model.CurrentCarImges != null)
+                    {
+                        @foreach (var item in Model.CurrentCarImges)
+                        {
+                            <div class="item">
+                                <img src="@Url.Content(item.Image)" alt="" />
+                            </div>
+                        }
+                    }
+
+                </div><!-- Page slider end -->
+            </div><!-- Slider col end -->
+        </div><!-- Row end -->
+    </div><!-- Banner text end -->
+</div><!-- Banner area end -->
+
+
+<section id="main-container" class="main-container">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Vehicle</p>
+                    </div>
+                    <div class="col-md-8">
+                        <h3> @Model.CurrentCar.Model.Brand.Name @Model.CurrentCar.Model.Name  @Model.CurrentCar.Year</h3>
+                        <h2><span>@Model.CurrentCar.Rate<i class="fa fa-star "></i></span></h2>
+                        <span>(@Model.CurrentCar.TripsNumber Trips)</span>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3><i class="fa fa-tachometer"></i>  @Model.CurrentCar.GasMileage KMPL</h3>
+                                <h3><i class="fa fa-clone "></i>  @Model.CurrentCar.NumberOfDoors doors</h3>
+                            </div>
+                            <div class="col-md-6">
+                                <h3><i class="fa fa-car"></i>  @Model.CurrentCar.EnergyMakeCarMove </h3>
+                                <h3><i class="fa fa-group "></i>   @Model.CurrentCar.NumberOfSeats seats</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Vehicle owner</p>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="col-md-4 center-block">
+                            <img src="@Model.Owner.ImageUrl" alt="@Model.Owner.FirstName" class="img-circle">
+                        </div>
+                        <div class="col-md-8">
+                            <h4>@Model.Owner.FirstName @Model.Owner.LastName</h4>
+                            <p>@Model.Owner.TripsNumber trips  <i class="fa fa-dot-circle-o"></i> Joined @Model.Owner.JoinedAt</p>
+                            <p>@Model.Owner.BriefAboutMe</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <h2 class="col-md-6">@Model.CurrentCar.PricePerDay EGP / day</h2>
+                </div>
+                <div class="row">
+                    <form method="post">
+                        <input type="hidden" name="carId" value="@Model.CurrentCar.Id" />
+                        <div class="form-group col-md-10">
+                            <label for="TripStart">Trip start : </label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="date"
+                                           class="form-control" ,required
+                                           asp-for="StartBookingDate"
+                                           id="Tripend"
+                                           min="@Model.CurrentCar.StartDate"
+                                           max="@Model.CurrentCar.EndDate">
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-10">
+                            <label for="Tripend">Trip end : </label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="date" required
+                                           class="form-control" id="TripStart"
+                                           asp-for="EndBookingDate"
+                                           min="@Model.CurrentCar.StartDate"
+                                           max="@Model.CurrentCar.EndDate">
+                                </div>
+                                <span></span>
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-10">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @if (Model.avilabeldays != null)
+                                    {
+                                        <span class="text-danger">This Vechicle not available in all Days You want </span>
+                                        <button type="button" class="btn btn-link text-danger" data-toggle="modal" data-target="#exampleModal">
+                                            Details
+                                        </button>
+                                    }
+                                    @if (Model.DateIsNotCorrect)
+                                    {
+                                        <span class="text-danger">Please open your eyes and look At your Choosen date ! </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" id="con" class="btn btn-primary col-md-9" style="width:70%;margin-left:17px">Go To Checkout</button>
+                    </form>
+
+                </div>
+            </div><!-- Content col end -->
+
+        </div><!-- Row end -->
+
+    </div><!-- Conatiner end -->
+</section><!-- Main container end -->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Avilabel Date</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (Model.avilabeldays != null)
+                {
+                    foreach (var item in Model.avilabeldays)
+                    {
+                        <div class="row">
+
+                            <div class="col-xs-offset-2 col-xs-5 text-info ">
+                                <p>@item.Key</p>
+                            </div>
+                            <div class="col-xs-3 text-danger">
+                                <p class='text @(item.Value=="Available"?"text-info":"text-danger")'>@item.Value</p>
+                            </div>
+
+                        </div>
+                    }
+                }
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿@model List<LendCar.Repository.BookingMoneyHelper>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Total Money</th>
+                <th>Complete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count == 0)
+            {
+                <tr>
+                    <td>There Is No Data Yet....</td>
+                </tr>
+            }
+            @for (int i = 0; i < Model.Count; i++)
+            {
+
+                <tr>
+                    <td>@Model[i].User.FirstName</td>
+                    <td>@Model[i].User.LastName</td>
+                    <td>@Model[i].User.Email</td>
+                    <td>@Model[i].User.PhoneNumber</td>
+                    <td>@Model[i].TotalMoney</td>
+                    <td><input type="button" value="Complete Process" data-id="@Model[i].User.Id" class="btn btn-primary btnCancel" /> </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
