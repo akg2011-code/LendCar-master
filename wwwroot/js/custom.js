@@ -55,7 +55,14 @@ jQuery(function ($) {
 			$('.navdown, .header-two').removeClass('navbar-fixed');
 		}
 	});
+/*hide navebar when scroll and display when up*/
+	var myElement = document.querySelector("#header");
 
+	// create a Headroom object passing in the #header element
+	var headroom = new Headroom(myElement);
+
+	// initialize the library
+	headroom.init();
 	/* ----------------------------------------------------------- */
 	/*  Mobile Menu
 	/* ----------------------------------------------------------- */

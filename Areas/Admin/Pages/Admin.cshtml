@@ -16,7 +16,7 @@
                             <li class="active" id="vehiclesTabLi">
                                 <a href="#vehiclesTabDiv" data-toggle="tab" title="Pending Vehicles">
                                     <span class="round-tabs one">
-                                        <i class="glyphicon glyphicon-exclamation-sign"></i>
+                                        <i class="fas fa-car"></i>
                                     </span>
                                 </a>
                             </li>
@@ -24,14 +24,14 @@
                             <li id="brandsTabLi">
                                 <a href="#brandsTabDiv" data-toggle="tab" title="Brands">
                                     <span class="round-tabs two">
-                                        <i class="glyphicon glyphicon-copyright-mark"></i>
+                                        <i class="far fa-copyright"></i>
                                     </span>
                                 </a>
                             </li>
                             <li id="brandModelsTabLi">
                                 <a href="#brandModelsTabDiv" data-toggle="tab" title="Models">
                                     <span class="round-tabs three">
-                                        <i class="glyphicon glyphicon-gift"></i>
+                                        <i class="fas fa-car-side"></i>
                                     </span>
                                 </a>
                             </li>
@@ -39,7 +39,7 @@
                             <li id="colorsTabLi">
                                 <a href="#colorsTabDiv" data-toggle="tab" title="Colors">
                                     <span class="round-tabs four">
-                                        <i class="glyphicon glyphicon-comment"></i>
+                                        <i class="fas fa-paint-roller"></i>
                                     </span>
                                 </a>
                             </li>
@@ -47,7 +47,7 @@
                             <li id="vehicleTypesTabLi">
                                 <a href="#vehicleTypesTabDiv" data-toggle="tab" title="Vehicle types">
                                     <span class="round-tabs five">
-                                        <i class="glyphicon glyphicon-ok"></i>
+                                        <i class="fas fa-car"></i>
                                     </span>
                                 </a>
                             </li>
@@ -230,9 +230,9 @@
                                     <div class="col-md-7">
                                         <h3 class="head text-center">Models</h3>
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label>Select brand to filter by : </label>
-                                        <select onchange="RenderBrandModels(this)" asp-items="@Model.BrandsSelectList">
+                                        <select class="form-control" onchange="RenderBrandModels(this)" asp-items="@Model.BrandsSelectList">
                                             <option value="0">All brands</option>
                                         </select>
                                     </div>
@@ -641,7 +641,7 @@
                         url += "&VTypePage=" + @Model.CurrentVTypesPage;
                         break;
                 }
-                debugger;
+                //debugger;
                 window.location.href = url;
             }
         }

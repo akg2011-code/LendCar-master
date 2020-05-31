@@ -1,6 +1,6 @@
 ﻿@model IPagedList<LendCar.Models.Vehicle>
 <table class="table  table-responsive table-bordered text-center ">
-    <thead class="text-center">
+    <thead class="text-center" style="color:#fff;background-color:var(--main-color)">
         <tr>
             <td scope="col">#</td>
             <td scope="col">Vehicles Name</td>
@@ -19,7 +19,7 @@
             <td scope="row">@i</td>
             <td>@Model[i-1].City.Name</td>
             @* <td> <p style="min-width:100%;min-height:100%; background-color:#@Url.Content(Model[i].Color.HexValue);"><p></td>*@
-            <td><i style="border-radius:50%; width:50%;height:50%; background-color:@Model[i-1].Color.HexValue">    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </i></td>
+            <td><i class="fas fa-tint" style=" font-size: xx-large;width:100%;height:100%; color:@Model[i-1].Color.HexValue"></i></td>
 
             <td>@Model[i-1].PlateNumber</td>
             <td>@Model[i-1].StartDate</td>
@@ -29,10 +29,10 @@
             <a asp-page="/Cars/carDetails" asp-route-id="@Model[i].Id">Details</a>
         </td>*@
             <td>
-                <a class="far fa-check-circle accept" data-id="@Model[i-1].Id"></a>
+                <a class="far fa-check-circle accept hover-icon" data-id="@Model[i-1].Id"></a>
             </td>
             <td>
-                <a class="fas fa-times refuse" data-id="@Model[i-1].Id"></a>
+                <a class="fas fa-times refuse hover-icon" style="color:red"  data-id="@Model[i-1].Id"></a>
             </td>
         </tr>
         }
